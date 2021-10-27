@@ -1,0 +1,12 @@
+/*  */
+.fill {
+  height: 100vh;
+  padding: 56px 0 0 0;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  float: left;
+}
