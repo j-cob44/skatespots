@@ -1,5 +1,8 @@
 # skatespots
 
+cmd:
+python -m http.server port
+
 Resources:
 
 Map Api: https://developers.google.com/maps/documentation/javascript/adding-a-google-map#maps_add_map-html
