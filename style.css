@@ -4,6 +4,11 @@
   padding: 56px 0 0 0;
 }
 
+#navbarCollapse {
+  display: flex!important;
+  flex-basis: auto;
+}
+
 #map {
   height: 100%;
   width: 100%;
