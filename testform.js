@@ -19,6 +19,15 @@
     })
 })()
 
+function enableTimestamps() {
+  if(document.getElementById("SwitchCheck").checked == true){
+    document.getElementById("Timestamps").removeAttribute("disabled");
+  }
+  else{
+    document.getElementById("Timestamps").setAttribute("disabled", "disabled");
+  }
+}
+
 function youtube_parser(url){
     var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
     var match = url.match(regExp);
@@ -91,6 +100,9 @@ function onUserSubmission() {
     var long;
     var formatted_addr;
 
+    var startStamp;
+    var stopStamp;
+
     var address = document.getElementById("KnownAddress").value;
     var skater = document.getElementById("SkatersName").value;
 
@@ -106,8 +118,6 @@ function onUserSubmission() {
         // bad address
         // fallback to get info from user map pin
       }
-
-
     }
     else {
       // no optional address, get info from user map pin
@@ -119,18 +129,59 @@ function onUserSubmission() {
     }
     //else Use User input provided above
 
+    var postData;
 
-    var postData = {
-      'lat': lat,
-      'long': long,
-      'youtubeCode': video_data.id,
-      'youtubeTitle': video_data.snippet.title,
-      'uploadDate': video_data.snippet.publishedAt,
-      'formatted_Address': formatted_addr,
-      'skatersName': skater
+    if(document.getElementById("SwitchCheck").checked == true) {
+      // Specific Timestamp
+
+      if(document.getElementById("StartTimestamp").value != "") {
+        startStamp = document.getElementById("StartTimestamp").value;
+      }
+      else {
+        // error
+      }
+
+      if(document.getElementById("StopTimestamp").value != "") {
+        stopStamp = document.getElementById("StopTimestamp").value;
+      }
+      else {
+        // error
+      }
+
+      console.log("POST");
+
+      postData = {
+       'lat': lat,
+       'long': long,
+       'youtubeCode': video_data.id,
+       'youtubeTitle': video_data.snippet.title,
+       'uploadDate': video_data.snippet.publishedAt,
+       'formatted_Address': formatted_addr,
+       'skatersName': skater,
+       'timestamped': true,
+       'StartTimestamp': startStamp,
+       'StopTimestamp': stopStamp
+     }
+
+     submitData(postData); // Success
+
     }
+    else {
 
-    submitData(postData);
+      console.log("POST");
+       postData = {
+        'lat': lat,
+        'long': long,
+        'youtubeCode': video_data.id,
+        'youtubeTitle': video_data.snippet.title,
+        'uploadDate': video_data.snippet.publishedAt,
+        'formatted_Address': formatted_addr,
+        'skatersName': skater,
+        'timestamped': false
+      }
+
+      submitData(postData); // Success
+    }
   }
   else{
     //pushback bad youtube Link
