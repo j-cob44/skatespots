@@ -4,6 +4,7 @@ let markerArray = new Array();
 var data;
 
 var g_map;
+var g_clusterer;
 
 // Youtube Player API
 var tag = document.createElement('script');
@@ -20,11 +21,22 @@ var player_stopTime;
 
 function initMap() {
   const usa = { lat: 39.286777, lng: -101.462366 };
+  const styles = [
+    {
+      featureType: "poi",
+      elementType: "labels",
+      stylers: [
+            { visibility: "off" }
+      ]
+    }
+  ]
+
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 5,
     center: usa,
     disableDefaultUI: true,
     zoomControl: true,
+    styles: styles,
   });
 
   registerMap(map);
@@ -43,6 +55,7 @@ function initMap() {
       }
   });
 
+  /* // depreciated unclustered markers
   for(let i = 0; i < data.pins.length; i++){
     var string = CreateContentString(data.pins[i]);
     var position = {lat: data.pins[i].lat, lng: data.pins[i].long};
@@ -53,12 +66,36 @@ function initMap() {
 
     marker = new google.maps.Marker({
       position: position,
-      map,
+      map: map,
       title: "#" + i,
     });
 
+    markerArray.push(marker);
     newListener(marker, infowindow);
   }
+  */
+
+  // const for clustered markers
+  const markers = data.pins.map((location, i) => {
+    var string = CreateContentString(data.pins[i]);
+    var position = {lat: data.pins[i].lat, lng: data.pins[i].long};
+
+    infowindow = new google.maps.InfoWindow({
+      content: string,
+    });
+    infowindows.push(infowindow);
+
+    return new google.maps.Marker({
+      position: position,
+      //label: "#" + i,
+    });
+  });
+
+  // Add info window listeners to clustered markers
+  for(var i = 0; i < markers.length; i++){
+    newListener(markers[i], infowindows[i]);
+  }
+
 
   /* // add pin listener
   map.addListener("dblclick", (e) => {
@@ -66,12 +103,27 @@ function initMap() {
   });
   */
 
+
   // close info windows on click
   map.addListener("click", (e) => {
     for(let i = 0; i < infowindows.length; i++){
       infowindows[i].close();
     }
   });
+
+
+
+  // Marker Clusterer
+  var options = {
+    imagePath: 'images/m'
+  }
+  const markerCluster = new markerClusterer.MarkerClusterer({ map, markers, options });
+  registerClusterer(markerCluster);
+
+} // end of map init
+
+function registerClusterer(f_clusterer){
+  g_clusterer = f_clusterer;
 }
 
 function registerMap(f_map){
@@ -80,7 +132,6 @@ function registerMap(f_map){
 
 function newListener(f_marker, f_infowindow){
   infowindows.push(f_infowindow);
-  markerArray.push(f_marker);
   f_marker.addListener("click", () => {
     for(let i = 0; i < infowindows.length; i++){
       infowindows[i].close();
