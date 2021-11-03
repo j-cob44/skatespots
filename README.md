@@ -1,7 +1,7 @@
 # skatespots
 
 cmd:
-python -m http.server port
+python httpPythonServer.py
 
 Resources:
 
