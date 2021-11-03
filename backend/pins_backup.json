@@ -1,0 +1,58 @@
+{
+  "pins": [
+    {
+      "lat": 39.286777,
+      "long": -101.462366,
+      "youtubeCode": "qsebzPaSp7E",
+      "youtubeTitle": "Halloween Hellbomb 2019 Video",
+      "skater": "Multiple",
+      "year": 2019,
+      "sponsor": "Thrasher"
+    },
+    {
+      "lat": 33.988918,
+      "long": -117.866370,
+      "youtubeCode": "WHASYE2e5Xo",
+      "youtubeTitle": "My War: Sammy Baca",
+      "skater": "Sammy Baca",
+      "year": 2020,
+      "sponsor": "Thrasher"
+    },
+    {
+      "lat": 33.385586,
+      "long": -112.106358,
+      "youtubeCode": "nYcJ53yM5Cw",
+      "youtubeTitle": "Mikey Burton Pumps",
+      "skater": "Mikey Burton",
+      "year": 2011,
+      "sponsor": "Sk8rat"
+    },
+    {
+      "lat": 34.234512,
+      "long": -118.360476,
+      "youtubeCode": "nYcJ53yM5Cw",
+      "youtubeTitle": "Mikey Burton Pumps",
+      "skater": "Mikey Burton",
+      "year": 2011,
+      "sponsor": "Sk8rat"
+    },
+    {
+      "lat": 33.660353,
+      "long": -117.777812,
+      "youtubeCode": "nYcJ53yM5Cw",
+      "youtubeTitle": "Mikey Burton Pumps",
+      "skater": "Mikey Burton",
+      "year": 2011,
+      "sponsor": "Sk8rat"
+    },
+    {
+      "lat": 39.842286,
+      "long": -76.133312,
+      "youtubeCode": "Y-zYVtwaGCo",
+      "youtubeTitle": "My War: Dane Burman",
+      "skater": "Dane Burman",
+      "year": 2013,
+      "sponsor": "Thrasher"
+    }
+  ]
+}
