@@ -5,6 +5,19 @@ var data;
 
 var g_map;
 
+// Youtube Player API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/player_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+var playerConfig;
+
+var player_videoId;
+var player_startTime;
+var player_stopTime;
+
 function initMap() {
   const usa = { lat: 39.286777, lng: -101.462366 };
   const map = new google.maps.Map(document.getElementById("map"), {
@@ -133,19 +146,39 @@ function youtube_parser(url){
     return (match&&match[1].length==11)? match[1] : false;
 }
 
+
 function CreateContentString(PinObj) {
-  var string =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    "</div>" +
-    '<p class="lead">' + PinObj.youtubeTitle + '</p>' +
-    '<div id="bodyContent">' +
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.youtubeCode + '" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>'+
-    '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.youtubeCode + '">' +
-    "https://www.youtube.com/watch?v=" + PinObj.youtubeCode + "</a> " +
-    "</p>" +
-    "</div>" +
-    "</div>";
+  var string;
+  if(PinObj.timestamped){
+    string =
+      '<div id="content">' +
+      '<div id="siteNotice">' +
+      "</div>" +
+      '<p class="lead">' + PinObj.youtubeTitle + '</p>' +
+      '<div id="bodyContent">' +
+      '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.youtubeCode + '?start=' + PinObj.StartTimestamp + '&end=' + PinObj.StopTimestamp + '&rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>'+
+      '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.youtubeCode + '">' +
+      "https://www.youtube.com/watch?v=" + PinObj.youtubeCode + "</a> " +
+      "</p>" +
+      "</div>" +
+      "</div>";
+  }
+  else {
+    string =
+      '<div id="content">' +
+      '<div id="siteNotice">' +
+      "</div>" +
+      '<p class="lead">' + PinObj.youtubeTitle + '</p>' +
+      '<div id="bodyContent">' +
+      '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.youtubeCode + '?rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>'+
+      '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.youtubeCode + '">' +
+      "https://www.youtube.com/watch?v=" + PinObj.youtubeCode + "</a> " +
+      "</p>" +
+      "</div>" +
+      "</div>";
+  }
+
+
   return string;
 }
 

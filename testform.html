@@ -21,19 +21,19 @@
         </div>
         <div class="mb-3 row">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Multiple Spots in this Video?</label>
+            <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck" onchange="enableTimestamps();">
+            <label class="form-check-label" for="SwitchCheck">Specific TimeStamp?</label>
           </div>
         </div>
-        <fieldset disabled>
+        <fieldset id="Timestamps" disabled>
           <div class="mb-3 row">
             <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">Start Timestamp</label>
             <div class="col-sm-2">
-              <input class="form-control" type="url" placeholder="Start Timestamp" aria-label="Start Timestamp" id="StartTimestamp"></input>
+              <input class="form-control" type="number" min="0" step="1" placeholder="Start Timestamp" aria-label="Start Timestamp" id="StartTimestamp"></input>
             </div>
             <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">Stop Timestamp</label>
             <div class="col-sm-2">
-              <input class="form-control" type="url" placeholder="Stop Timestamp" aria-label="Stop Timestamp" id="StopTimestamp"></input>
+              <input class="form-control" type="number" min="0" step="" placeholder="Stop Timestamp" aria-label="Stop Timestamp" id="StopTimestamp"></input>
             </div>
           </div>
         </fieldset>
