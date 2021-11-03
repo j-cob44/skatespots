@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>OurSkateSpots</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="./testform.js"></script>
+  </head>
+
+  <body>
+    <main class="container">
+      <form>
+        <div class="mb-3 row">
+          <label for="exampleFormControlInput1" class="form-label">Youtube Link</label>
+          <input class="form-control form-control-lg" type="url" placeholder="Youtube Link" aria-label="Youtube Link" id="YoutubeURL" required></input>
+          <div class="invalid-feedback">
+            Please use a valid Youtube URL.
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Multiple Spots in this Video?</label>
+          </div>
+        </div>
+        <fieldset disabled>
+          <div class="mb-3 row">
+            <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">Start Timestamp</label>
+            <div class="col-sm-2">
+              <input class="form-control" type="url" placeholder="Start Timestamp" aria-label="Start Timestamp" id="StartTimestamp"></input>
+            </div>
+            <label for="exampleFormControlInput1" class="col-sm-2 col-form-label">Stop Timestamp</label>
+            <div class="col-sm-2">
+              <input class="form-control" type="url" placeholder="Stop Timestamp" aria-label="Stop Timestamp" id="StopTimestamp"></input>
+            </div>
+          </div>
+        </fieldset>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">(Optional) Known Address</label>
+          <input class="form-control form-control-lg" type="text" placeholder="Address" aria-label="Address" id="KnownAddress"></input>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">(Optional) Skater's Name</label>
+          <input class="form-control form-control-lg" type="text" placeholder="Skater's Name" aria-label="Skater's Name" id="SkatersName"></input>
+        </div>
+        <div class="mb-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">
+              Agree to terms and conditions
+            </label>
+            <div class="invalid-feedback">
+              You must agree before submitting.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <button class="btn btn-primary" type="button" onclick="onUserSubmission()">Submit form</button>
+        </div>
+      </form>
+    </main>
+
+  </body>
+</html>
