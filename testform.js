@@ -96,8 +96,8 @@ function onUserSubmission() {
 
   if(youtube_data.items.length == 1) {
     var video_data = youtube_data.items[0]
-    var lat;
-    var long;
+    var lat = parseFloat(document.getElementById("Latitude").value);
+    var long = parseFloat(document.getElementById("Longitutde").value);
     var formatted_addr;
 
     var startStamp;
@@ -110,8 +110,13 @@ function onUserSubmission() {
       var data = getLatLongFrom(address);
       if(data.length != 0){
         // success
-        lat = data[0].geometry.location.lat;
-        long = data[0].geometry.location.lng;
+        if(lat = ""){
+          lat = data[0].geometry.location.lat;
+        }
+
+        if(long = ""){
+          long = data[0].geometry.location.lng;
+        }
         formatted_addr = data[0].formatted_address;
       }
       else {
@@ -121,7 +126,7 @@ function onUserSubmission() {
     }
     else {
       // no optional address, get info from user map pin
-
+      formatted_addr = "Address not Specified."
     }
 
     if(skater == ""){
