@@ -19,6 +19,10 @@ var player_videoId;
 var player_startTime;
 var player_stopTime;
 
+var user_added_marker = null;
+var user_lat;
+var user_lng;
+
 function initMap() {
   const usa = { lat: 39.286777, lng: -101.462366 };
   const styles = [
@@ -97,17 +101,21 @@ function initMap() {
   }
 
 
-  /* // add pin listener
+  // user 'Add Marker' listener
   map.addListener("dblclick", (e) => {
     placeMarkerAndPanTo(e.latLng, map);
   });
-  */
+
 
 
   // close info windows on click
   map.addListener("click", (e) => {
     for(let i = 0; i < infowindows.length; i++){
       infowindows[i].close();
+    }
+
+    if(user_added_marker != null){
+      clearUserMarker();
     }
   });
 
@@ -233,12 +241,54 @@ function CreateContentString(PinObj) {
   return string;
 }
 
-/*
-function placeMarkerAndPanTo(latLng, map) {
-  new google.maps.Marker({
+function createAdditionInfoWindow(latLng){
+  user_lat = latLng.lat();
+  user_lng = latLng.lng();
+
+  document.getElementById("input_lat").value = user_lat;
+  document.getElementById("input_lng").value = user_lng;
+
+  var string;
+  string =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<p class="lead">' + user_lat + ', ' + user_lng + '</p>' +
+    '<div id="bodyContent">' +
+    '<center><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#formModal">Add Spot Here</button></center>' +
+    "<p></p>" +
+    "</div>" +
+    "</div>";
+
+  infowindow = new google.maps.InfoWindow({
+    content: string,
+  });
+  return infowindow;
+}
+
+function createAdditionMarker(latLng, map) {
+  return new google.maps.Marker({
     position: latLng,
     map: map,
   });
-  map.panTo(latLng);
 }
-*/
+
+function clearUserMarker(){
+  user_added_marker.setMap(null);
+  user_added_marker = null;
+  user_lat = null;
+  user_lng = null;
+}
+
+function placeMarkerAndPanTo(latLng, map) {
+  var addInfoWindow = createAdditionInfoWindow(latLng);
+
+  user_added_marker = createAdditionMarker(latLng, map);
+  map.panTo(latLng);
+
+  addInfoWindow.open({
+    anchor: user_added_marker,
+    map,
+    shouldFocus: true,
+  });
+}
