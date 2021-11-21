@@ -19,6 +19,8 @@
     })
 })()
 
+
+
 function enableTimestamps() {
   if(document.getElementById("SwitchCheck").checked == true){
     document.getElementById("Timestamps").removeAttribute("disabled");
@@ -108,8 +110,15 @@ function onUserSubmission() {
     var startStamp;
     var stopStamp;
 
-    var address = document.getElementById("KnownAddress").value;
-    var skater = document.getElementById("SkatersName").value;
+    var address = "";
+    if(document.getElementById("KnownAddress").value.length != 0){
+      address = document.getElementById("KnownAddress").value;
+    }
+
+    var skater = "";
+    if(document.getElementById("SkatersName").value.length != 0){
+      address = document.getElementById("SkatersName").value;
+    }
 
     if(address != ""){
       var data = getLatLongFrom(address);
@@ -143,23 +152,73 @@ function onUserSubmission() {
 
     if(document.getElementById("SwitchCheck").checked == true) {
       // Specific Timestamp
+      // Starting Timestamp
+      var startSeconds;
+      var startMinutes;
+      var startHours;
+      startStamp = 0;
 
-      if(document.getElementById("StartTimestamp").value != "") {
-        startStamp = document.getElementById("StartTimestamp").value;
+      if(document.getElementById("StartTimestampHH").value != 0) {
+        startHours = document.getElementById("StartTimestampHH").value;
       }
       else {
         // error
+        startHours = 0;
       }
 
-      if(document.getElementById("StopTimestamp").value != "") {
-        stopStamp = document.getElementById("StopTimestamp").value;
+      if(document.getElementById("StartTimestampMM").value != 0) {
+        startMinutes = document.getElementById("StartTimestampMM").value;
       }
       else {
         // error
+        startMinutes = 0;
       }
+
+      if(document.getElementById("StartTimestampSS").value != 0) {
+        startSeconds = document.getElementById("StartTimestampSS").value;
+      }
+      else {
+        // error
+        startSeconds = 0;
+      }
+
+      // tally up the values
+      startStamp = parseInt(startHours * 60 * 60) + parseInt(startMinutes * 60) + parseInt(startSeconds);
+
+      // Stop Timestamp
+      var stopSeconds;
+      var stopMinutes;
+      var stopHours;
+      stopStamp = 0;
+
+      if(document.getElementById("StopTimestampHH").value != 0) {
+        stopHours = document.getElementById("StopTimestampHH").value;
+      }
+      else {
+        // error
+        stopHours = 0;
+      }
+
+      if(document.getElementById("StopTimestampMM").value != 0) {
+        stopMinutes = document.getElementById("StopTimestampMM").value;
+      }
+      else {
+        // error
+        stopMinutes = 0;
+      }
+
+      if(document.getElementById("StopTimestampSS").value.length != 0) {
+        stopSeconds = document.getElementById("StopTimestampSS").value;
+      }
+      else {
+        // error
+        stopSeconds = 0;
+      }
+
+      // tally up the values
+      stopStamp = parseInt(stopHours * 60 * 60) + parseInt(stopMinutes * 60) + parseInt(stopSeconds);
 
       console.log("POST");
-
       postData = {
        'lat': lat,
        'long': long,
