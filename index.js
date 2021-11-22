@@ -152,14 +152,6 @@ function newListener(f_marker, f_infowindow){
   });
 }
 
-function clearMarkers(){
-  for(var i = 0; i < markerArray.length; i++){
-    markerArray[i].setMap(null);
-  }
-  markerArray = new Array();
-  infowindows = new Array();
-}
-
 // Handles User Search for Youtube Link, Skater Name, or Year
 function MarkerSearch(){
   var user_input = document.getElementById("UserSearch").value;
@@ -169,7 +161,7 @@ function MarkerSearch(){
     return;
   }
 
-  clearMarkers();
+  g_clusterer.clearMarkers();
 
   var count = 0;
   // youtube Link
@@ -194,7 +186,35 @@ function MarkerSearch(){
       count++;
 
       marker.setMap(g_map);
+      g_clusterer.addMarker(marker);
     }
+  }
+}
+
+// Reset Search Filters
+function ResetSearch(){
+  g_clusterer.clearMarkers();
+
+  var count = 0;
+  for(var i = 0; i < data.pins.length; i++){
+    var string = CreateContentString(data.pins[i]);
+    var position = {lat: data.pins[i].lat, lng: data.pins[i].long};
+
+    infowindow = new google.maps.InfoWindow({
+      content: string,
+    });
+
+    marker = new google.maps.Marker({
+      position: position,
+      g_map,
+      title: "#" + count,
+    });
+
+    newListener(marker, infowindow);
+    count++;
+
+    marker.setMap(g_map);
+    g_clusterer.addMarker(marker);
   }
 }
 

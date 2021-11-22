@@ -10,3 +10,5 @@ Map Custom Markers: https://developers.google.com/maps/documentation/javascript/
 Map Events: https://developers.google.com/maps/documentation/javascript/events?hl=en_US
 
 Unused ~ KML Pins: https://developers.google.com/maps/documentation/javascript/kml ~
+
+Clusters: https://googlemaps.github.io/js-markerclusterer/classes/Cluster.html
