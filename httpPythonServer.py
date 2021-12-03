@@ -26,20 +26,23 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_PUT(self):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
 
-        self.send_response(200)
-        self.end_headers()
+        try:
+            submittedData = json.loads(self.data_string)
+            self.send_response(200)
+            self.end_headers()
 
-        submittedData = json.loads(self.data_string)
+            dt = datetime.now()
+            ts = datetime.timestamp(dt)
+            nowTime = dt.strftime('%Y-%m-%d-%H-%M-%S')
 
-        dt = datetime.now()
-        ts = datetime.timestamp(dt)
-        nowTime = dt.strftime('%Y-%m-%d-%H-%M-%S')
+            data = {'IP': self.client_address[0], 'timestamp': str(datetime.fromtimestamp(ts, tz=None)), 'submission': submittedData}
+            dataUpURL = "./backend/unverified/" + nowTime + ".json"
+            outfile = open(dataUpURL, "w")
+            json.dump(data, outfile)
+            outfile.close()
+        except json.decoder.JSONDecodeError:
+            self.send_error(400, 'Bad Request')
 
-        data = {'IP': self.client_address[0], 'timestamp': str(datetime.fromtimestamp(ts, tz=None)), 'submission': submittedData}
-        dataUpURL = "./backend/unverified/" + nowTime + ".json"
-        outfile = open(dataUpURL, "w")
-        json.dump(data, outfile)
-        outfile.close()
         return
 
 Handler = MyHttpRequestHandler
