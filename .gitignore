@@ -1,0 +1,2 @@
+# Exclude json files with irrelevant information
+/backend/unverified/*.json
