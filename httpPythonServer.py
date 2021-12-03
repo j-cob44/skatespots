@@ -24,7 +24,6 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         return
 
     def do_PUT(self):
-        self._set_headers()
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
 
         self.send_response(200)
