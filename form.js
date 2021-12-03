@@ -71,6 +71,7 @@ function getLatLongFrom(str_address){
   return addressResponse.candidates;
 }
 
+/* depreciated post function
 function submitData(newData){
   $.getJSON("./backend/unverified.json", function(data) {
     data.location_pins.push(newData);
@@ -90,51 +91,37 @@ function submitData(newData){
     });
   });
 }
+*/
 
-function submitVideo(newData){
-  var dataString;
-  if(newData.video.timestamped){
-    dataString = {
-      'youtubeCode': newData.video.youtubeCode,
-      'youtubeTitle': newData.video.youtubeTitle,
-      'uploadDate': newData.video.uploadDate,
-      'skatersName': newData.video.skatersName,
-      'timestamped': true,
-      'StartTimestamp': newData.video.StartTimestamp,
-      'StopTimestamp': newData.video.StopTimestamp
-    }
-  }
-  else{
-    dataString = {
-      'youtubeCode': newData.video.youtubeCode,
-      'youtubeTitle': newData.video.youtubeTitle,
-      'uploadDate': newData.video.uploadDate,
-      'skatersName': newData.video.skatersName,
-      'timestamped': false
-    };
-  }
-
-  $.getJSON("./backend/unverified.json", function(data) {
-    for(var i = 0; i < data.location_pins.length; i++){
-      if(data.location_pins[i].id == newData.id){
-        data.location_pins[i].videos.push(dataString);
-        break;
+// Upload Spot Submission
+function submitData(newData){
+  var dataUp = JSON.stringify(newData);
+  $.ajax({
+      async: false,
+      type: "PUT",
+      data: dataUp,
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      success: function (response) {
+          console.log(response);
       }
-    }
+  });
+}
 
-    var dataUp = JSON.stringify(data);
-    $.ajax({
-        async: false,
-        type: "POST",
-        url: "./backend/unverified.json",
-        data: dataUp,
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        },
-        success: function (response) {
-            console.log(response);
-        }
-    });
+// Upload Video Submission for Exisiting Spot
+function submitVideo(newData){
+  var dataUp = JSON.stringify(newData);
+  $.ajax({
+      async: false,
+      type: "PUT",
+      data: dataUp,
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      success: function (response) {
+          console.log(response);
+      }
   });
 }
 
@@ -156,6 +143,11 @@ function onUserSubmission() {
 
     var startStamp;
     var stopStamp;
+
+    var address = "";
+    if(document.getElementById("KnownAddress").value.length != 0){
+      address = document.getElementById("KnownAddress").value;
+    }
 
     var skater = "";
     if(document.getElementById("SkatersName").value.length != 0){

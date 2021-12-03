@@ -2,6 +2,8 @@
 import http.server # Our http server handler for http requests
 import socketserver # Establish the TCP Socket connections
 import json
+import uuid
+from datetime import datetime
 
 PORT = 80
 
@@ -17,16 +19,34 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_HEAD(self):
         self._set_headers()
 
-    def do_POST(self):
+    # def do_POST(self):
+    #     self._set_headers()
+    #     print("in post method")
+    #     self.data_string = self.rfile.read(int(self.headers['Content-Length']))
+    #
+    #     self.send_response(200)
+    #     self.end_headers()
+    #     print(self.data_string)
+    #     data = json.loads(self.data_string)
+    #     with open("./backend/unverified.json", "w") as outfile:
+    #         json.dump(data, outfile)
+    #     return
+
+    def do_PUT(self):
         self._set_headers()
-        print("in post method")
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
 
         self.send_response(200)
         self.end_headers()
-        print(self.data_string)
-        data = json.loads(self.data_string)
-        with open("./backend/unverified.json", "w") as outfile:
+
+        submittedData = json.loads(self.data_string)
+
+        dt = datetime.now()
+        ts = datetime.timestamp(dt)
+
+        data = {'IP': self.client_address[0], 'timestamp': str(datetime.fromtimestamp(ts, tz=None)), 'submission': submittedData}
+        dataUpURL = "./backend/unverified/" + str(uuid.uuid4().hex) + ".json"
+        with open(dataUpURL, "w") as outfile:
             json.dump(data, outfile)
         return
 
