@@ -73,7 +73,54 @@ function getLatLongFrom(str_address){
 
 function submitData(newData){
   $.getJSON("./backend/unverified.json", function(data) {
-    data.pins.push(newData);
+    data.location_pins.push(newData);
+
+    var dataUp = JSON.stringify(data);
+    $.ajax({
+        async: false,
+        type: "POST",
+        url: "./backend/unverified.json",
+        data: dataUp,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        success: function (response) {
+            console.log(response);
+        }
+    });
+  });
+}
+
+function submitVideo(newData){
+  var dataString;
+  if(newData.video.timestamped){
+    dataString = {
+      'youtubeCode': newData.video.youtubeCode,
+      'youtubeTitle': newData.video.youtubeTitle,
+      'uploadDate': newData.video.uploadDate,
+      'skatersName': newData.video.skatersName,
+      'timestamped': true,
+      'StartTimestamp': newData.video.StartTimestamp,
+      'StopTimestamp': newData.video.StopTimestamp
+    }
+  }
+  else{
+    dataString = {
+      'youtubeCode': newData.video.youtubeCode,
+      'youtubeTitle': newData.video.youtubeTitle,
+      'uploadDate': newData.video.uploadDate,
+      'skatersName': newData.video.skatersName,
+      'timestamped': false
+    };
+  }
+
+  $.getJSON("./backend/unverified.json", function(data) {
+    for(var i = 0; i < data.location_pins.length; i++){
+      if(data.location_pins[i].id == newData.id){
+        data.location_pins[i].videos.push(dataString);
+        break;
+      }
+    }
 
     var dataUp = JSON.stringify(data);
     $.ajax({
@@ -109,11 +156,6 @@ function onUserSubmission() {
 
     var startStamp;
     var stopStamp;
-
-    var address = "";
-    if(document.getElementById("KnownAddress").value.length != 0){
-      address = document.getElementById("KnownAddress").value;
-    }
 
     var skater = "";
     if(document.getElementById("SkatersName").value.length != 0){
@@ -220,34 +262,39 @@ function onUserSubmission() {
 
       console.log("POST");
       postData = {
-       'lat': lat,
-       'long': long,
-       'youtubeCode': video_data.id,
-       'youtubeTitle': video_data.snippet.title,
-       'uploadDate': video_data.snippet.publishedAt,
-       'formatted_Address': formatted_addr,
-       'skatersName': skater,
-       'timestamped': true,
-       'StartTimestamp': startStamp,
-       'StopTimestamp': stopStamp
-     }
+        'lat': lat,
+        'long': long,
+        'formatted_Address': formatted_addr,
+        'videos': [{
+          'youtubeCode': video_data.id,
+          'youtubeTitle': video_data.snippet.title,
+          'uploadDate': video_data.snippet.publishedAt,
+          'skatersName': skater,
+          'timestamped': true,
+          'StartTimestamp': startStamp,
+          'StopTimestamp': stopStamp
+       }]
+     };
 
      submitData(postData); // Success
 
     }
     else {
-
       console.log("POST");
-       postData = {
+      postData = {
         'lat': lat,
         'long': long,
-        'youtubeCode': video_data.id,
-        'youtubeTitle': video_data.snippet.title,
-        'uploadDate': video_data.snippet.publishedAt,
         'formatted_Address': formatted_addr,
-        'skatersName': skater,
-        'timestamped': false
-      }
+        'videos': [{
+          'youtubeCode': video_data.id,
+          'youtubeTitle': video_data.snippet.title,
+          'uploadDate': video_data.snippet.publishedAt,
+          'skatersName': skater,
+          'timestamped': true,
+          'StartTimestamp': startStamp,
+          'StopTimestamp': stopStamp
+        }]
+      };
 
       submitData(postData); // Success
     }
@@ -255,6 +302,151 @@ function onUserSubmission() {
     // exit
     document.getElementById("AddMarkerForm").reset(); // reset form
     alert("Spot Submitted!");
+  }
+  else{
+    //pushback bad youtube Link
+    //error
+  }
+}
+
+function onExistingSpotSubmission() {
+  var youtube_id = youtube_parser(document.getElementById("existingspot_YoutubeURL").value);
+
+  var youtube_data = getYoutubeData(youtube_id);
+
+  if(youtube_data.items.length == 1) {
+    var video_data = youtube_data.items[0]
+
+    var lat = parseFloat(document.getElementById("existingspot_lat").value);
+    var long = parseFloat(document.getElementById("existingspot_lng").value);
+    var spotID = document.getElementById("input_spotID").value;
+
+    console.log(lat);
+    console.log(long);
+
+    var formatted_addr;
+
+    var startStamp;
+    var stopStamp;
+
+
+    var skater = "";
+    if(document.getElementById("existingspot_SkatersName").value.length != 0){
+      address = document.getElementById("existingspot_SkatersName").value;
+    }
+
+    if(skater == ""){
+      skater = "Not Specified.";
+    }
+    //else Use User input provided above
+
+    var postData;
+
+    if(document.getElementById("existingspot_SwitchCheck").checked == true) {
+      // Specific Timestamp
+      // Starting Timestamp
+      var startSeconds;
+      var startMinutes;
+      var startHours;
+      startStamp = 0;
+
+      if(document.getElementById("existingspot_StartTimestampHH").value != 0) {
+        startHours = document.getElementById("existingspot_StartTimestampHH").value;
+      }
+      else {
+        // error
+        startHours = 0;
+      }
+
+      if(document.getElementById("existingspot_StartTimestampMM").value != 0) {
+        startMinutes = document.getElementById("existingspot_StartTimestampMM").value;
+      }
+      else {
+        // error
+        startMinutes = 0;
+      }
+
+      if(document.getElementById("existingspot_StartTimestampSS").value != 0) {
+        startSeconds = document.getElementById("existingspot_StartTimestampSS").value;
+      }
+      else {
+        // error
+        startSeconds = 0;
+      }
+
+      // tally up the values
+      startStamp = parseInt(startHours * 60 * 60) + parseInt(startMinutes * 60) + parseInt(startSeconds);
+
+      // Stop Timestamp
+      var stopSeconds;
+      var stopMinutes;
+      var stopHours;
+      stopStamp = 0;
+
+      if(document.getElementById("existingspot_StopTimestampHH").value != 0) {
+        stopHours = document.getElementById("existingspot_StopTimestampHH").value;
+      }
+      else {
+        // error
+        stopHours = 0;
+      }
+
+      if(document.getElementById("existingspot_StopTimestampMM").value != 0) {
+        stopMinutes = document.getElementById("existingspot_StopTimestampMM").value;
+      }
+      else {
+        // error
+        stopMinutes = 0;
+      }
+
+      if(document.getElementById("existingspot_StopTimestampSS").value.length != 0) {
+        stopSeconds = document.getElementById("existingspot_StopTimestampSS").value;
+      }
+      else {
+        // error
+        stopSeconds = 0;
+      }
+
+      // tally up the values
+      stopStamp = parseInt(stopHours * 60 * 60) + parseInt(stopMinutes * 60) + parseInt(stopSeconds);
+
+      console.log("POST");
+      postData = {
+        'id': spotID,
+        'video': {
+          'youtubeCode': video_data.id,
+          'youtubeTitle': video_data.snippet.title,
+          'uploadDate': video_data.snippet.publishedAt,
+          'skatersName': skater,
+          'timestamped': true,
+          'StartTimestamp': startStamp,
+          'StopTimestamp': stopStamp
+        }
+     };
+
+     submitVideo(postData); // Success
+
+    }
+    else {
+
+      console.log("POST");
+       postData = {
+         'id': spotID,
+         'video': {
+           'youtubeCode': video_data.id,
+           'youtubeTitle': video_data.snippet.title,
+           'uploadDate': video_data.snippet.publishedAt,
+           'skatersName': skater,
+           'timestamped': false
+         }
+      };
+
+      submitVideo(postData); // Success
+    }
+
+    // exit
+    document.getElementById("AddVideoForm").reset(); // reset form
+    alert("Video Submitted!");
   }
   else{
     //pushback bad youtube Link

@@ -31,7 +31,7 @@
       </nav>
     </header>
 
-    <!-- Form Modal -->
+    <!-- New Marker Form Modal -->
     <div class="modal fade " id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -40,7 +40,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <!-- Marker Form -->
+            <!-- New Marker Form -->
             <form id="AddMarkerForm">
               <div class="mb-3 row">
                 <label for="exampleFormControlInput1" class="form-label">Youtube Link</label>
@@ -105,6 +105,88 @@
               <div class="mb-3">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button class="btn btn-primary" type="button" onclick="onUserSubmission()" data-bs-dismiss="modal">Submit Spot</button>
+              </div>
+            </form>
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Existing Location Modal Form -->
+    <div class="modal fade " id="existingSpotModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="existingSpotModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="existingSpotModalLabel">Add a Video to Existing Spot</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- New Video Form -->
+            <form id="AddVideoForm">
+              <div class="mb-3 row">
+                <label for="exampleFormControlInput1" class="form-label">Youtube Link</label>
+                <input class="form-control form-control-lg" type="url" placeholder="Youtube Link" aria-label="Youtube Link" id="existingspot_YoutubeURL" required></input>
+                <div class="invalid-feedback">
+                  Please use a valid Youtube URL.
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <div class="ps-5 form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="existingspot_SwitchCheck" onchange="enableExistingFormTimestamps();">
+                  <label class="form-check-label" for="SwitchCheck">Specific TimeStamp?</label>
+                </div>
+              </div>
+              <fieldset id="existingForm_Timestamps" disabled>
+                <div class="mb-3 row">
+                  <label class="col-sm-5 col-form-label">Starting Timestamp:</label>
+                  <div class="col">
+                      <input class="form-control text-end" type="number" min="0" max="99" step="1" value="00" aria-label="Start Timestamp HH" id="existingspot_StartTimestampHH"></input>
+                  </div>
+                  <div class="col">
+                      <input class="form-control text-end" type="number" min="0" max="59" step="1" value="00" aria-label="Start Timestamp MM" id="existingspot_StartTimestampMM"></input>
+                  </div>
+                  <div class="col">
+                      <input class="form-control text-end" type="number" min="0" max="59" step="1" value="00" aria-label="Start Timestamp SS" id="existingspot_StartTimestampSS"></input>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label class="col-sm-5 col-form-label">Stopping Timestamp:</label>
+                  <div class="col">
+                    <input class="form-control text-end" type="number" min="0" max="99" step="1" value="00" aria-label="Stop Timestamp HH" id="existingspot_StopTimestampHH"></input>
+                  </div>
+                  <div class="col">
+                    <input class="form-control text-end" type="number" min="0" max="59" step="1" value="00" aria-label="Stop Timestamp MM" id="existingspot_StopTimestampMM"></input>
+                  </div>
+                  <div class="col">
+                    <input class="form-control text-end" type="number" min="0" max="59" step="1" value="00" aria-label="Stop Timestamp SS" id="existingspot_StopTimestampSS"></input>
+                  </div>
+                </div>
+              </fieldset>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">(Optional) Skater's Name</label>
+                <input class="form-control form-control-lg" type="text" placeholder="Skater's Name" aria-label="Skater's Name" id="existingspot_SkatersName"></input>
+              </div>
+              <input type="hidden" id="existingspot_lat" value="">
+              <input type="hidden" id="existingspot_lng" value="">
+              <input type="hidden" id="input_spotID" value="">
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="existingspot_invalidCheck" required>
+                  <label class="form-check-label" for="existingspot_invalidCheck">
+                    Agree to terms and conditions
+                  </label>
+                  <div class="invalid-feedback">
+                    You must agree before submitting.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" type="button" onclick="onExistingSpotSubmission()" data-bs-dismiss="modal">Submit Spot</button>
               </div>
             </form>
           </div>

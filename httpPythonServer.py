@@ -24,7 +24,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         self.send_response(200)
         self.end_headers()
-
+        print(self.data_string)
         data = json.loads(self.data_string)
         with open("./backend/unverified.json", "w") as outfile:
             json.dump(data, outfile)

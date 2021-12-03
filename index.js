@@ -22,6 +22,7 @@ var player_stopTime;
 var user_added_marker = null;
 var user_lat;
 var user_lng;
+var user_spotID;
 
 function initMap() {
   const usa = { lat: 39.286777, lng: -101.462366 };
@@ -45,7 +46,8 @@ function initMap() {
 
   registerMap(map);
 
-  var filePath = './backend/pins.json';
+
+  var filePath = './backend/location_data.json';
 
   $.ajax({
       async: false,
@@ -80,9 +82,9 @@ function initMap() {
   */
 
   // const for clustered markers
-  const markers = data.pins.map((location, i) => {
-    var string = CreateContentString(data.pins[i]);
-    var position = {lat: data.pins[i].lat, lng: data.pins[i].long};
+  const markers = data.location_pins.map((location, i) => {
+    var string = CreateContentString(data.location_pins[i]);
+    var position = {lat: data.location_pins[i].lat, lng: data.location_pins[i].long};
 
     infowindow = new google.maps.InfoWindow({
       content: string,
@@ -169,8 +171,8 @@ function MarkerSearch(){
   for(var i = 0; i < data.pins.length; i++){
     if(data.pins[i].youtubeCode == youtube_id) {
       console.log("here");
-      var string = CreateContentString(data.pins[i]);
-      var position = {lat: data.pins[i].lat, lng: data.pins[i].long};
+      var string = CreateContentString(data.location_pins[i]);
+      var position = {lat: data.location_pins[i].lat, lng: data.location_pins[i].long};
 
       infowindow = new google.maps.InfoWindow({
         content: string,
@@ -197,11 +199,12 @@ function ResetSearch(){
 
   var count = 0;
   for(var i = 0; i < data.pins.length; i++){
-    var string = CreateContentString(data.pins[i]);
-    var position = {lat: data.pins[i].lat, lng: data.pins[i].long};
+    var string = CreateContentString(data.location_pins[i]);
+    var position = {lat: data.location_pins[i].lat, lng: data.location_pins[i].long};
 
     infowindow = new google.maps.InfoWindow({
       content: string,
+      maxWidth: 584
     });
 
     marker = new google.maps.Marker({
@@ -225,40 +228,86 @@ function youtube_parser(url){
     return (match&&match[1].length==11)? match[1] : false;
 }
 
-
 function CreateContentString(PinObj) {
   var string;
-  if(PinObj.timestamped){
-    string =
-      '<div id="content">' +
-      '<div id="siteNotice">' +
-      "</div>" +
-      '<p class="lead">' + PinObj.youtubeTitle + '</p>' +
-      '<div id="bodyContent">' +
-      '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.youtubeCode + '?start=' + PinObj.StartTimestamp + '&end=' + PinObj.StopTimestamp + '&rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>'+
-      '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.youtubeCode + '">' +
-      "https://www.youtube.com/watch?v=" + PinObj.youtubeCode + "</a> " +
-      "</p>" +
-      "</div>" +
-      "</div>";
+  string =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    '</div>' +
+    '<div id="bodyContent">';
+
+
+  string += '<div id="carousel' + PinObj.id + '" class="carousel slide" data-bs-interval="false">'; // carousel begin
+
+  string += '<div class="carousel-indicators">'; // indicators begin
+  for(let j = 0; j <= PinObj.videos.length; j++){
+    if(j == 0){
+      string += '<button type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide ' + (j+1) + '"></button>';
+    }
+    else{
+      string += '<button type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide-to="' + j +'" aria-current="true" aria-label="Slide ' + (j+1) + '"></button>';
+    }
   }
-  else {
-    string =
-      '<div id="content">' +
-      '<div id="siteNotice">' +
-      "</div>" +
-      '<p class="lead">' + PinObj.youtubeTitle + '</p>' +
-      '<div id="bodyContent">' +
-      '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.youtubeCode + '?rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>'+
-      '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.youtubeCode + '">' +
-      "https://www.youtube.com/watch?v=" + PinObj.youtubeCode + "</a> " +
-      "</p>" +
-      "</div>" +
-      "</div>";
+  string += '</div>'; // indicators end
+
+  string += '<div class="carousel-inner">'; // begin carousel inner
+  for(var i = 0; i < PinObj.videos.length; i++){
+    if(i == 0) { // make active
+      string += '<div class="carousel-item active">';
+    }
+    else {
+      string += '<div class="carousel-item">';
+    }
+    string += '<p class="lead">' + PinObj.videos[i].youtubeTitle + '</p>';
+    if(PinObj.videos[i].timestamped) {
+      string += '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.videos[i].youtubeCode + '?start=' + PinObj.videos[i].StartTimestamp + '&end=' + PinObj.videos[i].StopTimestamp + '&rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    }
+    else { // not timestamped; use normal iframe
+      string += '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.videos[i].youtubeCode + '?rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    }
+    //string += '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.videos[0].youtubeCode + '">' + "https://www.youtube.com/watch?v=" + PinObj.videos[0].youtubeCode + "</a></p>";
+    string +=
+      "</div>"; // end carousel-item
   }
+  // add carousel item "ADD VIDEO TO SPOT"
+  string +=
+    '<div class="carousel-item">' +
+    '<p class="lead">Have a video to add to this spot?</p>' +
+    '<div class="VideoHolder d-flex align-items-center justify-content-center">' +
+    '<span class="align-middle"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#existingSpotModal" ' + "onclick='addAtSpecificSpot(" + PinObj.lat + "," + PinObj.long + "," + "&#39;" + PinObj.id + "&#39;" + ")'" + '>Add Spot Here</button></span>' +
+    '</div>' +
+    '</div>'
+  // end add carousel item section
+
+  string += '</div>'; // end carousel-inner
+  // add previous button
+  string +=
+    '<button class="carousel-control-prev" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="prev">' +
+    '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
+    '<span class="visually-hidden">Previous</span>' +
+    '</button>';
+
+  // add next button
+  string +=
+    '<button class="carousel-control-next" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="next">' +
+    '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
+    '<span class="visually-hidden">Next</span>' +
+    '</button>';
+  string += '</div>'; // end body content
+  string += "</div>"; // end content
 
 
   return string;
+}
+
+function addAtSpecificSpot(p_lat, p_long, p_id){
+  user_lat = p_lat;
+  user_long = p_long;
+  user_spotID = p_id;
+
+  document.getElementById("existingspot_lat").value = user_lat;
+  document.getElementById("existingspot_lng").value = user_long;
+  document.getElementById("input_spotID").value = user_spotID;
 }
 
 function createAdditionInfoWindow(latLng){
@@ -274,7 +323,7 @@ function createAdditionInfoWindow(latLng){
     '<div id="siteNotice">' +
     "</div>" +
     '<p class="lead">' + user_lat + ', ' + user_lng + '</p>' +
-    '<div id="bodyContent">' +
+    '<div id="bodyContent-add">' +
     '<center><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#formModal">Add Spot Here</button></center>' +
     "<p></p>" +
     "</div>" +
