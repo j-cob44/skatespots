@@ -264,7 +264,7 @@ function CreateContentString(PinObj) {
     '<div class="carousel-item">' +
     '<p class="lead">Have a video to add to this spot?</p>' +
     '<div class="VideoHolder d-flex align-items-center justify-content-center">' +
-    '<span class="align-middle"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#existingSpotModal" ' + "onclick='addAtSpecificSpot(" + PinObj.lat + "," + PinObj.long + "," + "&#39;" + PinObj.id + "&#39;" + ")'" + '>Add Spot Here</button></span>' +
+    '<span class="align-middle"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#existingSpotModal" ' + "onclick='addAtSpecificSpot(" + PinObj.lat + "," + PinObj.long + "," + "&#39;" + PinObj.id + "&#39;" + ")'" + '>Add Video to this Spot</button></span>' +
     '</div>' +
     '<p>&nbsp;</p>' +
     '</div>';
@@ -294,9 +294,6 @@ function CreateContentString(PinObj) {
     '</button>';
 
   string += '</div>'; // indicators end
-
-
-
 
   string += '</div>'; // end body content
   string += "</div>"; // end content

@@ -6,8 +6,6 @@ import json
 import uuid
 from datetime import datetime
 
-PORT = 80
-
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def _set_headers(self):
         self.send_response(200)
@@ -54,7 +52,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
 Handler = MyHttpRequestHandler
 
 def run(handler_class=Handler, addr="0.0.0.0", port=80):
-    with socketserver.TCPServer((addr, PORT), handler_class) as httpd:
+    with socketserver.TCPServer((addr, port), handler_class) as httpd:
         print(f"Http Server starting at {addr}:{port}")
         httpd.serve_forever()
 
