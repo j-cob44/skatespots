@@ -1,4 +1,5 @@
 # server.py
+import argparse
 import http.server # Our http server handler for http requests
 import socketserver # Establish the TCP Socket connections
 import json
@@ -52,6 +53,26 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
 
 Handler = MyHttpRequestHandler
 
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    print("Http Server Serving at port", PORT)
-    httpd.serve_forever()
+def run(handler_class=Handler, addr="0.0.0.0", port=80):
+    with socketserver.TCPServer((addr, PORT), handler_class) as httpd:
+        print(f"Http Server Serving at {addr}:{port}")
+        httpd.serve_forever()
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run a simple HTTP server")
+    parser.add_argument(
+        "-l",
+        "--listen",
+        default="localhost",
+        help="Specify the IP address of the server"
+    )
+    parser.add_argument(
+        "-p",
+        "--port",
+        type=int,
+        default=80,
+        help="Specify the port for the server"
+    )
+    args = parser.parse_args()
+    run(addr=args.listen, port=args.port)
