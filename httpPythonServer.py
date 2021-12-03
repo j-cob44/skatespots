@@ -55,7 +55,7 @@ Handler = MyHttpRequestHandler
 
 def run(handler_class=Handler, addr="0.0.0.0", port=80):
     with socketserver.TCPServer((addr, PORT), handler_class) as httpd:
-        print(f"Http Server Serving at {addr}:{port}")
+        print(f"Http Server starting at {addr}:{port}")
         httpd.serve_forever()
 
 
