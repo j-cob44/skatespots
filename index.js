@@ -204,7 +204,7 @@ function ResetSearch(){
 
     infowindow = new google.maps.InfoWindow({
       content: string,
-      maxWidth: 584
+      maxWidth: 750
     });
 
     marker = new google.maps.Marker({
@@ -239,16 +239,7 @@ function CreateContentString(PinObj) {
 
   string += '<div id="carousel' + PinObj.id + '" class="carousel slide" data-bs-interval="false">'; // carousel begin
 
-  string += '<div class="carousel-indicators">'; // indicators begin
-  for(let j = 0; j <= PinObj.videos.length; j++){
-    if(j == 0){
-      string += '<button type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide ' + (j+1) + '"></button>';
-    }
-    else{
-      string += '<button type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide-to="' + j +'" aria-current="true" aria-label="Slide ' + (j+1) + '"></button>';
-    }
-  }
-  string += '</div>'; // indicators end
+
 
   string += '<div class="carousel-inner">'; // begin carousel inner
   for(var i = 0; i < PinObj.videos.length; i++){
@@ -265,9 +256,8 @@ function CreateContentString(PinObj) {
     else { // not timestamped; use normal iframe
       string += '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.videos[i].youtubeCode + '?rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
     }
-    //string += '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.videos[0].youtubeCode + '">' + "https://www.youtube.com/watch?v=" + PinObj.videos[0].youtubeCode + "</a></p>";
-    string +=
-      "</div>"; // end carousel-item
+    string += '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.videos[0].youtubeCode + '">' + "https://www.youtube.com/watch?v=" + PinObj.videos[0].youtubeCode + "</a></p>";
+    string += "</div>"; // end carousel-item
   }
   // add carousel item "ADD VIDEO TO SPOT"
   string +=
@@ -276,23 +266,38 @@ function CreateContentString(PinObj) {
     '<div class="VideoHolder d-flex align-items-center justify-content-center">' +
     '<span class="align-middle"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#existingSpotModal" ' + "onclick='addAtSpecificSpot(" + PinObj.lat + "," + PinObj.long + "," + "&#39;" + PinObj.id + "&#39;" + ")'" + '>Add Spot Here</button></span>' +
     '</div>' +
-    '</div>'
+    '<p>&nbsp;</p>' +
+    '</div>';
   // end add carousel item section
-
   string += '</div>'; // end carousel-inner
+
+  string += '<div class="carousel-indicators overridden-indicator">'; // indicators begin
   // add previous button
   string +=
-    '<button class="carousel-control-prev" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="prev">' +
+    '<button class="carousel-control-prev overridden-cbutton" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="prev">' +
     '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
     '<span class="visually-hidden">Previous</span>' +
     '</button>';
-
+  for(let j = 0; j <= PinObj.videos.length; j++){
+    if(j == 0){
+      string += '<button type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide-to="0" class="active carouselcolor" aria-current="true" aria-label="Slide ' + (j+1) + '"></button>';
+    }
+    else{
+      string += '<button type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide-to="' + j +'" class="carouselcolor" aria-current="true" aria-label="Slide ' + (j+1) + '"></button>';
+    }
+  }
   // add next button
   string +=
-    '<button class="carousel-control-next" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="next">' +
+    '<button class="carousel-control-next overridden-cbutton" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="next">' +
     '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
     '<span class="visually-hidden">Next</span>' +
     '</button>';
+
+  string += '</div>'; // indicators end
+
+
+
+
   string += '</div>'; // end body content
   string += "</div>"; // end content
 

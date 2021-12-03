@@ -27,10 +27,20 @@
   background-color: #8e8e8e;
 }
 
-.carousel-indicators .active{
-    background-color: #0000ff;
+.overridden-indicator {
+  position: static !important;
+  margin-bottom: 0 !important;
 }
 
-.carousel-indicators .active{
-    background-color: #ff0000;
+.overridden-cbutton {
+  position: static !important;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  background-color: #00f;
+  height: 1rem !important;
+}
+
+.carouselcolor{
+    background-color: #0000ff !important;
 }
