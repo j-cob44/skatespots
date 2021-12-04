@@ -170,7 +170,22 @@
           "youtubeTitle": "Brent Atchley - Burnside",
           "uploadDate": "2012-09-13T16:26:00Z",
           "skatersName": "Brent Atchley",
-          "timestamped": true
+          "timestamped": false
+        }
+      ]
+    },
+    {
+      "id": "3a52a6ec-5a6b-44ee-959b-6bb8b8ff5968",
+      "lat": 45.37893564955676,
+      "long": -122.05158492199241,
+      "formatted_Address": "Address not Specified.",
+      "videos": [
+        {
+          "youtubeCode": "Q_L2n8hCc30",
+          "youtubeTitle": "Windells Skate Camp Takeover 2019 | Tactics",
+          "uploadDate": "2019-08-12T21:01:20Z",
+          "skatersName": "Tactics Skate Team",
+          "timestamped": false
         }
       ]
     }

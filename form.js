@@ -55,32 +55,29 @@ function getYoutubeData(youtube_code){
   return dataResponse;
 }
 
+/*
 function getLatLongFrom(str_address){
   var addressResponse;
-  var placesURL = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=' + str_address + '&inputtype=textquery&fields=formatted_address,geometry&key=AIzaSyBisw8qFsJpG_pKja7zHohsxkyVK7oOGDg';
-  $.ajax({
-      async: false,
-      type: "GET",
-      url: placesURL,
-      data: addressResponse,
-      success: function (response) {
-          addressResponse = response;
-      }
-  });
+
+  request = {
+    'query': str_address
+  }
 
   var data = []
+  search = new google.maps.places.PlacesService(g_map);
 
-  if (addressResponse == null){
-    return data;
-  }
-  else if(addressResponse.candidates.length == 0){
-    return data;
-  }
-  else {
-    data = addressResponse.candidates
-  }
-  return data;
+  return new Promise((resolve) => {
+    search.textSearch(request, function(results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log(results)
+        data = results
+      }
+      resolve(data);
+    });
+  });
 }
+*/
+
 
 /* depreciated post function
 function submitData(newData){
@@ -136,7 +133,23 @@ function submitVideo(newData){
   });
 }
 
-function onUserSubmission() {
+const getAddress = address => {
+  return new Promise((resolve, reject) => {
+    var request = {'query': address};
+
+    search = new google.maps.places.PlacesService(g_map);
+    search.textSearch(request, function(results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        resolve(results);
+      }
+      else {
+        reject(status);
+      }
+    });
+  })
+}
+
+async function onUserSubmission() {
   var youtube_id = youtube_parser(document.getElementById("YoutubeURL").value);
 
   var youtube_data = getYoutubeData(youtube_id);
@@ -150,7 +163,7 @@ function onUserSubmission() {
     console.log(lat);
     console.log(long);
 
-    var formatted_addr;
+    var formatted_addr = "";
 
     var startStamp;
     var stopStamp;
@@ -166,7 +179,12 @@ function onUserSubmission() {
     }
 
     if(address != ""){
-      var data = getLatLongFrom(address);
+      try {
+        var data = await getAddress(address);
+      } catch(error){
+        var data = [];
+      }
+
       if(data.length != 0){
         // success
         for(var i = 0; i < data.length; i++){
@@ -202,7 +220,7 @@ function onUserSubmission() {
 
     var postData;
 
-    if(document.getElementById("SwitchCheck").checked == true) {
+    if(document.getElementById("newspot_SwitchCheck").checked == true) {
       // Specific Timestamp
       // Starting Timestamp
       var startSeconds;
@@ -300,9 +318,7 @@ function onUserSubmission() {
           'youtubeTitle': video_data.snippet.title,
           'uploadDate': video_data.snippet.publishedAt,
           'skatersName': skater,
-          'timestamped': true,
-          'StartTimestamp': startStamp,
-          'StopTimestamp': stopStamp
+          'timestamped': false
         }]
       };
 
