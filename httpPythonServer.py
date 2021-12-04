@@ -6,6 +6,7 @@ import json
 import uuid
 import os
 from datetime import datetime
+from urllib.parse import urlparse
 
 class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -20,7 +21,26 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         if not os.path.splitext(self.path)[1] in permitted_extensions:
             self.send_error(404, 'File Not Found/Allowed')
         else:
-            http.server.SimpleHTTPRequestHandler.do_GET(self)
+            f = None
+            try:
+                # first we need to parse it
+                parsed = urlparse(self.path)
+                path = '.' + parsed.path
+
+                f = open(path, "rb")
+
+            except IOError:
+                self.send_error(404, 'File Not Found/Allowed')
+                return
+
+            self.send_response(200)
+            fs = os.fstat(f.fileno())
+            self.send_header("Content-Length", str(fs[6]))
+            self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
+            self.end_headers()
+
+            self.wfile.write(f.read())
+            f.close()
         return
 
     def do_PUT(self):
