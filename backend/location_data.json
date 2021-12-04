@@ -1,1 +1,178 @@
-{"location_pins": [{"id": "ea75bf37-bdb3-4848-b041-e1ae97c1170b", "lat": 34.0596706, "long": -118.2478878, "formatted_Address": "717 W Temple St, Los Angeles, CA 90012, USA", "videos": [{"youtubeCode": "WHASYE2e5Xo", "youtubeTitle": "My War: Sammy Baca", "uploadDate": "2020-07-14T16:00:30Z", "skatersName": "Sammy Baca", "timestamped": false}]}, {"id": "4a5d0a01-1837-4f2a-a2ae-ef5ef1f2b2cc", "lat": 34.0662317, "long": -118.2564648, "formatted_Address": "1300 Cortez St, Los Angeles, CA 90026, USA", "videos": [{"youtubeCode": "nYcJ53yM5Cw", "youtubeTitle": "Mikey Burton Pumps", "uploadDate": "2011-05-31T02:31:54Z", "skatersName": "Mikey Burton", "timestamped": true, "StartTimestamp": 25, "StopTimestamp": 36}]}, {"id": "8f2ce1e6-d0ce-45d1-bca5-5cdff67c2367", "lat": 34.0599115, "long": -118.2432411, "formatted_Address": "245 Fort Moore Pl, Los Angeles, CA 90012, USA", "videos": [{"youtubeCode": "nYcJ53yM5Cw", "youtubeTitle": "Mikey Burton Pumps", "uploadDate": "2011-05-31T02:31:54Z", "skatersName": "Mikey Burton", "timestamped": true, "StartTimestamp": 14, "StopTimestamp": 21}]}, {"id": "a2189c56-adc1-40e3-b47e-b63068f5d236", "lat": 55.67115948794388, "long": 12.59524118300303, "formatted_Address": "Address not Specified.", "videos": [{"youtubeCode": "cMa_MESflH0", "youtubeTitle": "CPH Open 2018 \u2013 40 Stair Rail Contest", "uploadDate": "2018-08-29T21:43:31Z", "skatersName": "Not Specified.", "timestamped": false}]}, {"id": "e0d57823-d9da-4b3d-9c9f-ff3aa12c3cec", "lat": 33.418697959080404, "long": -111.93870358389103, "formatted_Address": "J. Russell and Bonita Nelson Fine Arts Center, 51 E 10th St, Tempe, AZ 85287, USA", "videos": [{"youtubeCode": "BXhU-vC4Ww4", "youtubeTitle": "A HAPPY MEDIUM 3 (FULL VIDEO)", "uploadDate": "2020-03-24T21:11:08Z", "skatersName": "Miles Canevello", "timestamped": true, "StartTimestamp": 1586, "StopTimestamp": 1597}]}, {"id": "29ce91de-814e-48b5-8959-ab7ad5fa1ed7", "lat": 33.42113663549266, "long": -111.93108465298653, "formatted_Address": "Address not Specified.", "videos": [{"youtubeCode": "wAjifV8_Heo", "youtubeTitle": "Arizona state university", "uploadDate": "2017-03-28T18:51:01Z", "skatersName": "Not Specified.", "timestamped": true, "StartTimestamp": 123, "StopTimestamp": 131}]}, {"id": "1d4d80bd-c7f7-4bd0-a5eb-570a4427d4ed", "lat": 33.418164907659396, "long": -111.93448264235934, "formatted_Address": "Address not Specified.", "videos": [{"youtubeCode": "BXhU-vC4Ww4", "youtubeTitle": "A HAPPY MEDIUM 3 (FULL VIDEO)", "uploadDate": "2020-03-24T21:11:08Z", "skatersName": "Not Specified.", "timestamped": true, "StartTimestamp": 185, "StopTimestamp": 190}]}, {"id": "069df183-4d54-40fa-b7ed-323d66dfd3dd", "lat": 33.763434160832205, "long": -118.16665666519953, "formatted_Address": "Address not Specified.", "videos": [{"youtubeCode": "_6HMD9_Wj88", "youtubeTitle": "Halloween Hellbomb 2018 Video", "uploadDate": "2018-11-01T22:55:48Z", "skatersName": "Not Specified.", "timestamped": false}]}, {"id": "ff3cc356-bc5e-4bb9-877d-86858c2a55c3", "lat": 33.63782663164335, "long": -117.68908785569006, "formatted_Address": "25255 Toledo Way, Lake Forest, CA 92630, USA", "videos": [{"youtubeCode": "nswICjA4ZYg", "youtubeTitle": "Clive Dixon's \"El Toro Relapse\" Video", "uploadDate": "2018-03-23T16:15:19Z", "skatersName": "Clive Dixon", "timestamped": false}, {"youtubeCode": "cP7G2YY8MRY", "youtubeTitle": "Adrien Bulard, El Toro Raw", "uploadDate": "2018-07-18T17:08:34Z", "skatersName": "Not Specified.", "timestamped": false}]}]}
+{
+  "location_pins": [
+    {
+      "id": "ea75bf37-bdb3-4848-b041-e1ae97c1170b",
+      "lat": 34.0596706,
+      "long": -118.2478878,
+      "formatted_Address": "717 W Temple St, Los Angeles, CA 90012, USA",
+      "videos": [
+        {
+          "youtubeCode": "WHASYE2e5Xo",
+          "youtubeTitle": "My War: Sammy Baca",
+          "uploadDate": "2020-07-14T16:00:30Z",
+          "skatersName": "Sammy Baca",
+          "timestamped": false
+        }
+      ]
+    },
+    {
+      "id": "4a5d0a01-1837-4f2a-a2ae-ef5ef1f2b2cc",
+      "lat": 34.0662317,
+      "long": -118.2564648,
+      "formatted_Address": "1300 Cortez St, Los Angeles, CA 90026, USA",
+      "videos": [
+        {
+          "youtubeCode": "nYcJ53yM5Cw",
+          "youtubeTitle": "Mikey Burton Pumps",
+          "uploadDate": "2011-05-31T02:31:54Z",
+          "skatersName": "Mikey Burton",
+          "timestamped": true,
+          "StartTimestamp": 25,
+          "StopTimestamp": 36
+        }
+      ]
+    },
+    {
+      "id": "8f2ce1e6-d0ce-45d1-bca5-5cdff67c2367",
+      "lat": 34.0599115,
+      "long": -118.2432411,
+      "formatted_Address": "245 Fort Moore Pl, Los Angeles, CA 90012, USA",
+      "videos": [
+        {
+          "youtubeCode": "nYcJ53yM5Cw",
+          "youtubeTitle": "Mikey Burton Pumps",
+          "uploadDate": "2011-05-31T02:31:54Z",
+          "skatersName": "Mikey Burton",
+          "timestamped": true,
+          "StartTimestamp": 14,
+          "StopTimestamp": 21
+        }
+      ]
+    },
+    {
+      "id": "a2189c56-adc1-40e3-b47e-b63068f5d236",
+      "lat": 55.67115948794388,
+      "long": 12.59524118300303,
+      "formatted_Address": "Address not Specified.",
+      "videos": [
+        {
+          "youtubeCode": "cMa_MESflH0",
+          "youtubeTitle": "CPH Open 2018 – 40 Stair Rail Contest",
+          "uploadDate": "2018-08-29T21:43:31Z",
+          "skatersName": "Not Specified.",
+          "timestamped": false
+        }
+      ]
+    },
+    {
+      "id": "e0d57823-d9da-4b3d-9c9f-ff3aa12c3cec",
+      "lat": 33.418697959080404,
+      "long": -111.93870358389102,
+      "formatted_Address": "J. Russell and Bonita Nelson Fine Arts Center, 51 E 10th St, Tempe, AZ 85287, USA",
+      "videos": [
+        {
+          "youtubeCode": "BXhU-vC4Ww4",
+          "youtubeTitle": "A HAPPY MEDIUM 3 (FULL VIDEO)",
+          "uploadDate": "2020-03-24T21:11:08Z",
+          "skatersName": "Miles Canevello",
+          "timestamped": true,
+          "StartTimestamp": 1586,
+          "StopTimestamp": 1597
+        }
+      ]
+    },
+    {
+      "id": "29ce91de-814e-48b5-8959-ab7ad5fa1ed7",
+      "lat": 33.42113663549266,
+      "long": -111.93108465298653,
+      "formatted_Address": "Address not Specified.",
+      "videos": [
+        {
+          "youtubeCode": "wAjifV8_Heo",
+          "youtubeTitle": "Arizona state university",
+          "uploadDate": "2017-03-28T18:51:01Z",
+          "skatersName": "Not Specified.",
+          "timestamped": true,
+          "StartTimestamp": 123,
+          "StopTimestamp": 131
+        }
+      ]
+    },
+    {
+      "id": "1d4d80bd-c7f7-4bd0-a5eb-570a4427d4ed",
+      "lat": 33.418164907659396,
+      "long": -111.93448264235934,
+      "formatted_Address": "Address not Specified.",
+      "videos": [
+        {
+          "youtubeCode": "BXhU-vC4Ww4",
+          "youtubeTitle": "A HAPPY MEDIUM 3 (FULL VIDEO)",
+          "uploadDate": "2020-03-24T21:11:08Z",
+          "skatersName": "Not Specified.",
+          "timestamped": true,
+          "StartTimestamp": 185,
+          "StopTimestamp": 190
+        }
+      ]
+    },
+    {
+      "id": "069df183-4d54-40fa-b7ed-323d66dfd3dd",
+      "lat": 33.763434160832205,
+      "long": -118.16665666519952,
+      "formatted_Address": "Address not Specified.",
+      "videos": [
+        {
+          "youtubeCode": "_6HMD9_Wj88",
+          "youtubeTitle": "Halloween Hellbomb 2018 Video",
+          "uploadDate": "2018-11-01T22:55:48Z",
+          "skatersName": "Not Specified.",
+          "timestamped": false
+        }
+      ]
+    },
+    {
+      "id": "ff3cc356-bc5e-4bb9-877d-86858c2a55c3",
+      "lat": 33.63782663164335,
+      "long": -117.68908785569006,
+      "formatted_Address": "25255 Toledo Way, Lake Forest, CA 92630, USA",
+      "videos": [
+        {
+          "youtubeCode": "nswICjA4ZYg",
+          "youtubeTitle": "Clive Dixon's \"El Toro Relapse\" Video",
+          "uploadDate": "2018-03-23T16:15:19Z",
+          "skatersName": "Clive Dixon",
+          "timestamped": false
+        },
+        {
+          "youtubeCode": "cP7G2YY8MRY",
+          "youtubeTitle": "Adrien Bulard, El Toro Raw",
+          "uploadDate": "2018-07-18T17:08:34Z",
+          "skatersName": "Not Specified.",
+          "timestamped": false
+        },
+        {
+          "youtubeCode": "zw_rlQSCoUw",
+          "youtubeTitle": "Aaron \"Jaws\" Homoki El Toro 20 Stair RAW",
+          "uploadDate": "2019-06-19T18:20:26Z",
+          "skatersName": "Aaron Homoki",
+          "timestamped": false
+        }
+      ]
+    },
+    {
+      "id": "8461efb6-b69b-4d00-86bf-83157895786e",
+      "lat": 45.52294833705958,
+      "long": -122.66373141531517,
+      "formatted_Address": "SE 2nd Ave, Portland, OR 97232, United States",
+      "videos": [
+        {
+          "youtubeCode": "GSDdo5n8API",
+          "youtubeTitle": "Brent Atchley - Burnside",
+          "uploadDate": "2012-09-13T16:26:00Z",
+          "skatersName": "Brent Atchley",
+          "timestamped": true
+        }
+      ]
+    }
+  ]
+}
