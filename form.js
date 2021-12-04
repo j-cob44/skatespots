@@ -68,7 +68,18 @@ function getLatLongFrom(str_address){
       }
   });
 
-  return addressResponse.candidates;
+  var data = []
+
+  if (addressResponse == null){
+    return data;
+  }
+  else if(addressResponse.candidates.length == 0){
+    return data;
+  }
+  else {
+    data = addressResponse.candidates
+  }
+  return data;
 }
 
 /* depreciated post function
@@ -151,25 +162,32 @@ function onUserSubmission() {
 
     var skater = "";
     if(document.getElementById("SkatersName").value.length != 0){
-      address = document.getElementById("SkatersName").value;
+      skater = document.getElementById("SkatersName").value;
     }
 
     if(address != ""){
       var data = getLatLongFrom(address);
       if(data.length != 0){
         // success
-        if(lat == ""){
-          lat = data[0].geometry.location.lat;
+        for(var i = 0; i < data.length; i++){
+          if((lat-0.01) < data[i].geometry.lat < (lat+0.01)){
+            // correct latitude
+            if((long-0.01) < data[i].geometry.lng < (lat+0.01)){
+              // correct longitude
+              formatted_addr = data[i].formatted_address;
+            }
+          }
         }
 
-        if(long == ""){
-          long = data[0].geometry.location.lng;
+        if(formatted_addr == ""){
+          // not Found
+          formatted_addr = "Address not Specified."
         }
-        formatted_addr = data[0].formatted_address;
       }
       else {
         // bad address
         // fallback to get info from user map pin
+        formatted_addr = "Address not Specified."
       }
     }
     else {
@@ -252,7 +270,7 @@ function onUserSubmission() {
       // tally up the values
       stopStamp = parseInt(stopHours * 60 * 60) + parseInt(stopMinutes * 60) + parseInt(stopSeconds);
 
-      console.log("POST");
+      console.log("Submitted!");
       postData = {
         'lat': lat,
         'long': long,
@@ -272,7 +290,7 @@ function onUserSubmission() {
 
     }
     else {
-      console.log("POST");
+      console.log("Submitted!");
       postData = {
         'lat': lat,
         'long': long,
@@ -324,7 +342,7 @@ function onExistingSpotSubmission() {
 
     var skater = "";
     if(document.getElementById("existingspot_SkatersName").value.length != 0){
-      address = document.getElementById("existingspot_SkatersName").value;
+      skater = document.getElementById("existingspot_SkatersName").value;
     }
 
     if(skater == ""){
@@ -402,7 +420,7 @@ function onExistingSpotSubmission() {
       // tally up the values
       stopStamp = parseInt(stopHours * 60 * 60) + parseInt(stopMinutes * 60) + parseInt(stopSeconds);
 
-      console.log("POST");
+      console.log("Submitted!");
       postData = {
         'id': spotID,
         'video': {
@@ -421,7 +439,7 @@ function onExistingSpotSubmission() {
     }
     else {
 
-      console.log("POST");
+      console.log("Submitted!");
        postData = {
          'id': spotID,
          'video': {
