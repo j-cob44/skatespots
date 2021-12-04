@@ -51,8 +51,8 @@
               </div>
               <div class="mb-3 row">
                 <div class="ps-5 form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck" onchange="enableTimestamps();">
-                  <label class="form-check-label" for="SwitchCheck">Specific TimeStamp?</label>
+                  <input class="form-check-input" type="checkbox" role="switch" id="newspot_SwitchCheck" onchange="enableTimestamps();">
+                  <label class="form-check-label" for="newspot_SwitchCheck">Specific TimeStamp?</label>
                 </div>
               </div>
               <fieldset id="Timestamps" disabled>
@@ -137,7 +137,7 @@
               <div class="mb-3 row">
                 <div class="ps-5 form-check form-switch">
                   <input class="form-check-input" type="checkbox" role="switch" id="existingspot_SwitchCheck" onchange="enableExistingFormTimestamps();">
-                  <label class="form-check-label" for="SwitchCheck">Specific TimeStamp?</label>
+                  <label class="form-check-label" for="existingspot_SwitchCheck">Specific TimeStamp?</label>
                 </div>
               </div>
               <fieldset id="existingForm_Timestamps" disabled>
@@ -203,7 +203,7 @@
       <div id="map"></div>
 
       <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-      <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBisw8qFsJpG_pKja7zHohsxkyVK7oOGDg&callback=initMap"></script>
+      <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBisw8qFsJpG_pKja7zHohsxkyVK7oOGDg&libraries=places&callback=initMap"></script>
     </div>
 
 
