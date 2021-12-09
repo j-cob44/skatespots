@@ -19,14 +19,21 @@
     })
 })()
 
-
-
 function enableTimestamps() {
-  if(document.getElementById("SwitchCheck").checked == true){
+  if(document.getElementById("newspot_SwitchCheck").checked == true){
     document.getElementById("Timestamps").removeAttribute("disabled");
   }
   else{
     document.getElementById("Timestamps").setAttribute("disabled", "disabled");
+  }
+}
+
+function enableExistingFormTimestamps() {
+  if(document.getElementById("existingspot_SwitchCheck").checked == true){
+    document.getElementById("existingForm_Timestamps").removeAttribute("disabled");
+  }
+  else{
+    document.getElementById("existingForm_Timestamps").setAttribute("disabled", "disabled");
   }
 }
 
