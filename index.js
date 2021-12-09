@@ -251,10 +251,10 @@ function CreateContentString(PinObj) {
     }
     string += '<p class="lead">' + PinObj.videos[i].youtubeTitle + '</p>';
     if(PinObj.videos[i].timestamped) {
-      string += '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.videos[i].youtubeCode + '?start=' + PinObj.videos[i].StartTimestamp + '&end=' + PinObj.videos[i].StopTimestamp + '&rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      string += '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.videos[i].youtubeCode + '?start=' + PinObj.videos[i].StartTimestamp + '&end=' + PinObj.videos[i].StopTimestamp + '&rel=0&enablejsapi=1" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
     }
     else { // not timestamped; use normal iframe
-      string += '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.videos[i].youtubeCode + '?rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      string += '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + PinObj.videos[i].youtubeCode + '?rel=0&enablejsapi=1" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
     }
     string += '<p>Watch on Youtube: <a href="https://www.youtube.com/watch?v=' + PinObj.videos[0].youtubeCode + '">' + "https://www.youtube.com/watch?v=" + PinObj.videos[0].youtubeCode + "</a></p>";
     string += "</div>"; // end carousel-item
@@ -274,7 +274,7 @@ function CreateContentString(PinObj) {
   string += '<div class="carousel-indicators overridden-indicator">'; // indicators begin
   // add previous button
   string +=
-    '<button class="carousel-control-prev overridden-cbutton" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="prev">' +
+    '<button class="carousel-control-prev overridden-cbutton" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="prev" onclick="pauseAnyVideo()">' +
     '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
     '<span class="visually-hidden">Previous</span>' +
     '</button>';
@@ -288,7 +288,7 @@ function CreateContentString(PinObj) {
   }
   // add next button
   string +=
-    '<button class="carousel-control-next overridden-cbutton" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="next">' +
+    '<button class="carousel-control-next overridden-cbutton" type="button" data-bs-target="#carousel' + PinObj.id + '" data-bs-slide="next" onclick="pauseAnyVideo()">' +
     '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
     '<span class="visually-hidden">Next</span>' +
     '</button>';
@@ -342,6 +342,13 @@ function createAdditionMarker(latLng, map) {
     position: latLng,
     map: map,
   });
+}
+
+function pauseAnyVideo(){
+  var frames = document.getElementsByTagName("iframe");
+  for(var i = 0; i < frames.length; i++){
+    frames[i].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+  }
 }
 
 function clearUserMarker(){
