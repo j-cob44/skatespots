@@ -44,7 +44,7 @@ function youtube_parser(url){
 }
 
 function getYoutubeData(youtube_code){
-  var url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + youtube_code + '&key=AIzaSyBisw8qFsJpG_pKja7zHohsxkyVK7oOGDg';
+  var url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + youtube_code + '&key=' + config.g_Key;
   var dataResponse;
 
   $.ajax({
